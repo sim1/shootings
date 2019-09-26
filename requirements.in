@@ -1,0 +1,4 @@
+flask
+requests-html
+requests
+pendulum
