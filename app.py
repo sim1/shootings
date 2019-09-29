@@ -8,10 +8,6 @@ app = Flask(__name__)
 def root():
     return app.send_static_file('index.html')
 
-@app.route('/index.js')
-def indexjs():
-    return app.send_static_file('index.js')
-
 
 @app.route('/api/0/deaths')
 def deaths():
