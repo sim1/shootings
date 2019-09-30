@@ -11,10 +11,10 @@ class Deaths:
 
     @property
     def should_update(self):
-        return int(time.time()) < (self.last_updated + self.refresh_time)
+    	return (int(time.time()) - self.last_updated) > self.refresh_time
 
     def update(self):
-        if not self.should_update:
+        if self.shootings and not self.should_update:
             return
         self._get_wikipedia()
 
