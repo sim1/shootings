@@ -12,21 +12,21 @@ chardet==3.0.4            # via requests
 click==7.0                # via flask
 cssselect==1.1.0          # via pyquery
 fake-useragent==0.1.11    # via requests-html
-flask==1.1.1
+flask==1.1.1              # via -r requirements.in
 idna==2.8                 # via requests
 itsdangerous==1.1.0       # via flask
 jinja2==2.10.1            # via flask
-lxml==4.4.1               # via pyquery
+lxml==4.6.2               # via pyquery
 markupsafe==1.1.1         # via jinja2
 parse==1.12.1             # via requests-html
-pendulum==2.0.5
+pendulum==2.0.5           # via -r requirements.in
 pyee==6.0.0               # via pyppeteer
 pyppeteer==0.0.25         # via requests-html
 pyquery==1.4.0            # via requests-html
 python-dateutil==2.8.0    # via pendulum
 pytzdata==2019.3          # via pendulum
-requests-html==0.10.0
-requests==2.22.0
+requests-html==0.10.0     # via -r requirements.in
+requests==2.22.0          # via -r requirements.in, requests-html
 six==1.12.0               # via python-dateutil, w3lib
 soupsieve==1.9.4          # via beautifulsoup4
 tqdm==4.36.1              # via pyppeteer
