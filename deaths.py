@@ -41,7 +41,7 @@ class Deaths:
     def _get_wikipedia(self):
         deaths = []
         session = HTMLSession()
-        r = session.get('https://en.wikipedia.org/wiki/List_of_mass_shootings_in_the_United_States_in_2020')
+        r = session.get('https://en.wikipedia.org/wiki/List_of_mass_shootings_in_the_United_States_in_2021')
         for row in r.html.find('table')[0].find('tr'):
             if len(row.find('td')) < 5:
                 continue
