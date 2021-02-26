@@ -1,109 +1,134 @@
 <html>
-<head>
-<style>
-body, input {
-  background-color: #eeeeee;
-  color: black;
-}
-.flex-container {
-  display: flex;
-}
-.flex-column {
-	flex-direction: column;
-}
-.flex-small {
-	width: 70%;
-}
-.flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100%;
-    text-align: center;
-    margin: 10% 0;
-    min-height: 200px;
-    align-items: center;
-}
-p, input, #answer {
-	font-family: Verdana;
-	font-size: 48px;
-	display: inline;
-}
-#answer {
-	margin-top: 200px;
-}
-input {
-	width: 40px;
-	outline: 0 !important;
-}
-input:focus, input {
-	outline-style:none;
-	box-shadow:none;
-	border-color:transparent;
-}
-#days {
-	border-bottom: 1px dashed #999;
-}
-.disclaimer {
-	font-size: 12px;
-	font-family: Verdana;
-}
-.days {
-	color: gray;
-}
-.deaths,.shootings {
-	color: red;
-}
-.injuries {
-	color: orange;
-}
-.days,.deaths,.injuries,.shootings {
-	font-weight: bold;
-}
 
-</style>
-<script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+<head>
+	<style>
+		body,
+		input {
+			background-color: #eeeeee;
+			color: black;
+		}
+
+		.flex-container {
+			display: flex;
+		}
+
+		.flex-column {
+			flex-direction: column;
+		}
+
+		.flex-small {
+			width: 70%;
+		}
+
+		.flex-center {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			width: 100%;
+			text-align: center;
+			margin: 10% 0;
+			min-height: 200px;
+			align-items: center;
+		}
+
+		p,
+		input,
+		#answer {
+			font-family: Verdana;
+			font-size: 48px;
+			display: inline;
+		}
+
+		#answer {
+			margin-top: 200px;
+		}
+
+		input {
+			width: 40px;
+			outline: 0 !important;
+		}
+
+		input:focus,
+		input {
+			outline-style: none;
+			box-shadow: none;
+			border-color: transparent;
+		}
+
+		#days {
+			border-bottom: 1px dashed #999;
+		}
+
+		.disclaimer {
+			font-size: 12px;
+			font-family: Verdana;
+		}
+
+		.days {
+			color: gray;
+		}
+
+		.deaths,
+		.shootings {
+			color: red;
+		}
+
+		.injuries {
+			color: orange;
+		}
+
+		.days,
+		.deaths,
+		.injuries,
+		.shootings {
+			font-weight: bold;
+		}
+	</style>
+	<script src="/jquery"></script>
 
 </head>
 <script>
-var latest = '7';
-function loop(){
-	if(latest != get_input_value()){
-		update();
-		latest = get_input_value();
+	var latest = '7';
+	function loop() {
+		if (latest != get_input_value()) {
+			update();
+			latest = get_input_value();
+		}
+		setTimeout(loop, 1000)
 	}
-	setTimeout(loop, 1000)
-}
-function get_input_value(){
-	return $('#days')[0].value;
-}
-function set_answer(shootings, days, deaths, injuries){
-	$('#answer')[0].innerHTML = 'In the past <p class="days">'+days+'</p> days there were <p class="shootings">'+shootings+'</p> mass shootings, causing <p class="deaths">' + deaths + '</p> deaths and <p class="injuries">'+injuries+'</p> injuries.'
-}
+	function get_input_value() {
+		return $('#days')[0].value;
+	}
+	function set_answer(shootings, days, deaths, injuries) {
+		$('#answer')[0].innerHTML = 'In the past <p class="days">' + days + '</p> days there were <p class="shootings">' + shootings + '</p> mass shootings, causing <p class="deaths">' + deaths + '</p> deaths and <p class="injuries">' + injuries + '</p> injuries.'
+	}
 
-function update(){
-	$.get('/api/0/deaths', {'days': get_input_value()})
-	  .done(function(data){
-	  	set_answer(data.count, data.days, data.deaths, data.injuries)
-	  })
-}
-$( document ).ready(function() {
-	update();
-	setTimeout(loop, 1000);
-})
+	function update() {
+		$.get('/api/0/deaths', { 'days': get_input_value() })
+			.done(function (data) {
+				set_answer(data.count, data.days, data.deaths, data.injuries)
+			})
+	}
+	$(document).ready(function () {
+		update();
+		setTimeout(loop, 1000);
+	})
 
 </script>
+
 <body>
-<div class="flex-container flex-column flex-center">
-	<div class="flex-small">
-	<p>How many mass shootings were there in the United States in the past <input type="text" id="days" maxlength="3" autofocus value="7" onkeypress="this.style.width = ((this.value.length + 1) * 40) + 'px';"></input> days?</p>
+	<div class="flex-container flex-column flex-center">
+		<div class="flex-small">
+			<p>How many mass shootings were there in the United States in the past <input type="text" id="days"
+					maxlength="3" autofocus value="7"
+					onkeypress="this.style.width = ((this.value.length + 1) * 40) + 'px';"></input> days?</p>
+		</div>
+		<div class="flex-small" id="answer"></div>
+		<div class="disclaimer"><a
+				href="https://en.wikipedia.org/wiki/List_of_mass_shootings_in_the_United_States_in_2019">Source</a>
+		</div>
 	</div>
-	<div class="flex-small" id="answer"></div>
-	<div class="disclaimer"><a href="https://en.wikipedia.org/wiki/List_of_mass_shootings_in_the_United_States_in_2019">Source</a></div>
-</div>
 </body>
+
 </html>

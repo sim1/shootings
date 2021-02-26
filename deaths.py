@@ -45,7 +45,9 @@ class Deaths:
         for row in r.html.find('table')[0].find('tr'):
             if len(row.find('td')) < 5:
                 continue
-            date, _, dead, injured, __, description = row.find('td')
+            print(row.find('td'))
+
+            date, _, _, dead, injured, __, description = row.find('td')
             data = {
                 'date': date.text,
                 'pdate': pendulum.from_format(date.text, 'MMMM D, YYYY'),
