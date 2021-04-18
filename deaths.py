@@ -50,7 +50,7 @@ class Deaths:
             date, _, _, dead, injured, __, description = row.find('td')
             data = {
                 'date': date.text,
-                'pdate': pendulum.from_format(date.text, 'MMMM D, YYYY'),
+                'pdate': pendulum.from_format(date.text, 'MMMM D'),
                 'injured': int(re.sub(r'\[n \d\]','', injured.text)),
                 'dead': int(re.sub(r'\[n \d\]','', dead.text)),
             }
